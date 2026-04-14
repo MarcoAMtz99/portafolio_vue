@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
-  theme: {
+  themeMode: {
     type: String,
     required: true,
   },
@@ -18,7 +18,7 @@ const languages = ['en', 'es', 'pt']
 const currentLanguageLabel = computed(() => locale.value.toUpperCase())
 
 const currentThemeLabel = computed(() => {
-  return props.theme === 'dark' ? 'Dark' : 'Light'
+  return props.themeMode === 'dark' ? 'Dark' : 'Light'
 })
 
 const changeLanguage = () => {
