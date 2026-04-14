@@ -5,39 +5,45 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section id="projects" class="projects-section">
-    <div class="projects-container">
+  <section id="projects" class="section-shell projects-section">
+    <div class="section-container">
       <div class="section-heading">
         <p class="section-label">{{ t('projects.label') }}</p>
-        <h2>{{ t('projects.title') }}</h2>
+        <h2 class="section-title">{{ t('projects.title') }}</h2>
         <p class="section-description">
           {{ t('projects.description') }}
         </p>
       </div>
 
       <div class="projects-grid">
-        <article class="project-card">
-          <p class="project-stack">{{ t('projects.items.project1.stack') }}</p>
-          <h3>{{ t('projects.items.project1.title') }}</h3>
-          <p class="project-description">
-            {{ t('projects.items.project1.description') }}
-          </p>
+        <article class="panel project-card">
+          <div class="panel-content">
+            <p class="project-stack">{{ t('projects.items.project1.stack') }}</p>
+            <h3>{{ t('projects.items.project1.title') }}</h3>
+            <p class="project-description">
+              {{ t('projects.items.project1.description') }}
+            </p>
+          </div>
         </article>
 
-        <article class="project-card">
-          <p class="project-stack">{{ t('projects.items.project2.stack') }}</p>
-          <h3>{{ t('projects.items.project2.title') }}</h3>
-          <p class="project-description">
-            {{ t('projects.items.project2.description') }}
-          </p>
+        <article class="panel project-card">
+          <div class="panel-content">
+            <p class="project-stack">{{ t('projects.items.project2.stack') }}</p>
+            <h3>{{ t('projects.items.project2.title') }}</h3>
+            <p class="project-description">
+              {{ t('projects.items.project2.description') }}
+            </p>
+          </div>
         </article>
 
-        <article class="project-card">
-          <p class="project-stack">{{ t('projects.items.project3.stack') }}</p>
-          <h3>{{ t('projects.items.project3.title') }}</h3>
-          <p class="project-description">
-            {{ t('projects.items.project3.description') }}
-          </p>
+        <article class="panel project-card">
+          <div class="panel-content">
+            <p class="project-stack">{{ t('projects.items.project3.stack') }}</p>
+            <h3>{{ t('projects.items.project3.title') }}</h3>
+            <p class="project-description">
+              {{ t('projects.items.project3.description') }}
+            </p>
+          </div>
         </article>
       </div>
     </div>
@@ -45,50 +51,10 @@ const { t } = useI18n()
 </template>
 
 <style scoped>
-.projects-section {
-  padding: 72px 20px;
-}
-
-.projects-container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-heading {
-  margin-bottom: 32px;
-}
-
-.section-label {
-  margin: 0 0 10px;
-  color: var(--accent);
-  letter-spacing: 1px;
-}
-
-.section-heading h2 {
-  margin: 0 0 12px;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  color: var(--text-primary);
-}
-
-.section-description {
-  margin: 0;
-  max-width: 720px;
-  line-height: 1.8;
-  color: var(--text-secondary);
-}
-
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-}
-
-.project-card {
-  border: 1px solid var(--border);
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: var(--shadow-soft);
 }
 
 .project-stack {
@@ -117,12 +83,8 @@ const { t } = useI18n()
 }
 
 @media (max-width: 520px) {
-  .projects-section {
-    padding: 56px 16px;
-  }
-
-  .project-card {
-    padding: 20px;
+  .projects-grid {
+    gap: 14px;
   }
 }
 </style>

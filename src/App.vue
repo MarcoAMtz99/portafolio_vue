@@ -6,31 +6,35 @@ import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 
-const theme = ref('dark')
+// 👉 estado del tema
+const themeFamily = ref('editorial') 
+const themeMode = ref('dark')
 
-const applyTheme = (value) => {
-  document.documentElement.setAttribute('data-theme', value)
+const applyTheme = () => {
+  document.documentElement.setAttribute('data-theme-family', themeFamily.value)
+  document.documentElement.setAttribute('data-theme-mode', themeMode.value)
 }
 
-watch(theme, (newTheme) => {
-  applyTheme(newTheme)
-})
+// aplicar cambios
+watch([themeFamily, themeMode], applyTheme)
 
 onMounted(() => {
-  applyTheme(theme.value)
+  applyTheme()
 })
 
-const toggleTheme = () => {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark'
+// toggle dark/light
+const toggleThemeMode = () => {
+  themeMode.value = themeMode.value === 'dark' ? 'light' : 'dark'
 }
 </script>
 
 <template>
   <div class="app-shell">
     <TheHeader
-      :theme="theme"
-      @toggle-theme="toggleTheme"
+      :theme-mode="themeMode"
+      @toggle-theme="toggleThemeMode"
     />
+
     <HeroSection />
     <AboutSection />
     <ProjectsSection />

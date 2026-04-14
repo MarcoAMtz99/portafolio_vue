@@ -1,0 +1,40 @@
+:root {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+
+  --bg-primary: #f6f3ea;
+  --bg-secondary: #ebe7dd;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #5c5c5c;
+
+  --accent: #6b7a5a;
+  --accent-hover: #4f5a44;
+  --accent-soft: rgba(107, 122, 90, 0.12);
+
+  --border: #d6d2c4;
+  --card-bg: rgba(255, 255, 255, 0.6);
+
+  --shadow-soft: none;
+
+  --panel-border: #cfcab8;
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --panel-radius: 8px;
+  --panel-shadow: none;
+  --panel-padding: 24px;
+
+  --button-radius: 6px;
+  --button-primary-bg: #1a1a1a;
+  --button-primary-text: #f6f3ea;
+  --button-primary-hover: #333;
+
+  --button-secondary-bg: transparent;
+  --button-secondary-text: var(--text-primary);
+  --button-secondary-border: #cfcab8;
+  --button-secondary-hover-bg: rgba(0, 0, 0, 0.04);
+
+  --section-label-color: #6b7a5a;
+
+  --window-bar-height: 0;
+  --window-bar-bg: transparent;
+  --window-bar-border: none;
+}

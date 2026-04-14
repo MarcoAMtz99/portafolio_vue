@@ -1,0 +1,39 @@
+.panel {
+  border: 1px solid var(--panel-border, var(--border));
+  background: var(--panel-bg, var(--card-bg));
+  border-radius: var(--panel-radius, 16px);
+  box-shadow: var(--panel-shadow, var(--shadow-soft));
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    color 0.35s ease;
+  position: relative;
+}
+
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--panel-inner-border, transparent);
+  border-radius: calc(var(--panel-radius, 16px) - 6px);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.panel-content {
+  padding: var(--panel-padding, 24px);
+}
+
+.panel-window {
+  overflow: hidden;
+  position: relative;
+}
+
+.panel-window::before {
+  content: "";
+  display: block;
+  height: var(--window-bar-height, 0);
+  background: var(--window-bar-bg, transparent);
+  border-bottom: var(--window-bar-border, none);
+}

@@ -1,0 +1,168 @@
+/* =========================
+   TOKENS BASE
+========================= */
+:root {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+}
+
+/* =========================
+   DEFAULT - DARK
+========================= */
+[data-theme-family="default"][data-theme-mode="dark"] {
+  font-family: var(--font-sans);
+
+  --bg-primary: #050816;
+  --bg-secondary: #0b1120;
+
+  --text-primary: #e5e7eb;
+  --text-secondary: #94a3b8;
+
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+
+  --border: #1f2937;
+  --card-bg: rgba(255, 255, 255, 0.03);
+
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.3);
+
+  --panel-border: var(--border);
+  --panel-bg: var(--card-bg);
+  --panel-radius: 16px;
+  --panel-shadow: var(--shadow-soft);
+  --panel-padding: 24px;
+
+  --button-radius: 10px;
+  --button-primary-bg: var(--accent);
+  --button-primary-text: #02100a;
+  --button-primary-hover: var(--accent-hover);
+
+  --button-secondary-bg: transparent;
+  --button-secondary-text: var(--text-primary);
+  --button-secondary-border: var(--border);
+  --button-secondary-hover-bg: rgba(255, 255, 255, 0.05);
+
+  --section-label-color: var(--accent);
+}
+
+/* =========================
+   DEFAULT - LIGHT
+========================= */
+[data-theme-family="default"][data-theme-mode="light"] {
+  font-family: var(--font-sans);
+
+  --bg-primary: #f8fafc;
+  --bg-secondary: #e2e8f0;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  --accent: #15803d;
+  --accent-hover: #166534;
+
+  --border: #cbd5e1;
+  --card-bg: rgba(15, 23, 42, 0.04);
+
+  --shadow-soft: 0 8px 30px rgba(15, 23, 42, 0.06);
+
+  --panel-border: var(--border);
+  --panel-bg: var(--card-bg);
+  --panel-radius: 16px;
+  --panel-shadow: var(--shadow-soft);
+  --panel-padding: 24px;
+
+  --button-radius: 10px;
+  --button-primary-bg: var(--accent);
+  --button-primary-text: #ffffff;
+  --button-primary-hover: var(--accent-hover);
+
+  --button-secondary-bg: transparent;
+  --button-secondary-text: var(--text-primary);
+  --button-secondary-border: var(--border);
+  --button-secondary-hover-bg: rgba(15, 23, 42, 0.04);
+
+  --section-label-color: var(--accent);
+}
+
+/* =========================
+   EDITORIAL - LIGHT
+========================= */
+[data-theme-family="editorial"][data-theme-mode="light"] {
+  font-family: var(--font-mono);
+
+  --bg-primary: #f6f3ea;
+  --bg-secondary: #ebe7dd;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #5c5c5c;
+
+  --accent: #6b7a5a;
+  --accent-hover: #4f5a44;
+
+  --border: #d6d2c4;
+  --card-bg: rgba(255, 255, 255, 0.6);
+
+  --shadow-soft: none;
+
+  --panel-border: #cfcab8;
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --panel-radius: 8px;
+  --panel-shadow: none;
+  --panel-padding: 24px;
+
+  --button-radius: 6px;
+  --button-primary-bg: #1a1a1a;
+  --button-primary-text: #f6f3ea;
+  --button-primary-hover: #333;
+
+  --button-secondary-bg: transparent;
+  --button-secondary-text: var(--text-primary);
+  --button-secondary-border: #cfcab8;
+  --button-secondary-hover-bg: rgba(0, 0, 0, 0.04);
+
+  --section-label-color: #6b7a5a;
+  --panel-inner-border: rgba(0, 0, 0, 0.06);
+
+}
+
+/* =========================
+   EDITORIAL - DARK
+========================= */
+[data-theme-family="editorial"][data-theme-mode="dark"] {
+  font-family: var(--font-mono);
+
+  --bg-primary: #121212;
+  --bg-secondary: #1a1a1a;
+
+  --text-primary: #f2efe6;
+  --text-secondary: #b8b1a3;
+
+  --accent: #b7a57a;
+  --accent-hover: #a08f6b;
+
+  --border: #2a2a2a;
+  --card-bg: rgba(255, 255, 255, 0.03);
+
+  --shadow-soft: none;
+
+  --panel-border: #2f2f2f;
+  --panel-bg: rgba(255, 255, 255, 0.02);
+  --panel-radius: 8px;
+  --panel-shadow: none;
+  --panel-padding: 24px;
+
+  --button-radius: 6px;
+  --button-primary-bg: #f2efe6;
+  --button-primary-text: #121212;
+  --button-primary-hover: #e0dccf;
+
+  --button-secondary-bg: transparent;
+  --button-secondary-text: var(--text-primary);
+  --button-secondary-border: #2f2f2f;
+  --button-secondary-hover-bg: rgba(255, 255, 255, 0.05);
+
+  --section-label-color: #b7a57a;
+
+  --panel-inner-border: rgba(255, 255, 255, 0.04);
+
+}

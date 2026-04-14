@@ -1,0 +1,43 @@
+:root {
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+
+  --bg-primary: #0b1020;
+  --bg-secondary: #11182d;
+
+  --text-primary: #e6edf7;
+  --text-secondary: #94a3b8;
+
+  --accent: #4ade80;
+  --accent-hover: #22c55e;
+  --accent-soft: rgba(74, 222, 128, 0.14);
+
+  --border: #23314f;
+  --card-bg: rgba(15, 23, 42, 0.72);
+
+  --shadow-soft: 0 10px 30px rgba(2, 6, 23, 0.32);
+
+  --panel-border: rgba(74, 222, 128, 0.14);
+  --panel-bg: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.84) 0%,
+    rgba(10, 15, 29, 0.92) 100%
+  );
+  --panel-radius: 18px;
+  --panel-shadow: 0 12px 34px rgba(2, 6, 23, 0.34);
+  --panel-padding: 24px;
+
+  --button-radius: 12px;
+  --button-primary-bg: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  --button-primary-text: #04110a;
+  --button-primary-hover: linear-gradient(135deg, #6ee7a0 0%, #22c55e 100%);
+  --button-secondary-bg: rgba(148, 163, 184, 0.05);
+  --button-secondary-text: var(--text-primary);
+  --button-secondary-border: rgba(148, 163, 184, 0.2);
+  --button-secondary-hover-bg: rgba(148, 163, 184, 0.09);
+
+  --section-label-color: #4ade80;
+
+  --window-bar-height: 0;
+  --window-bar-bg: transparent;
+  --window-bar-border: none;
+}
