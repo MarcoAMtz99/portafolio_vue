@@ -1,0 +1,71 @@
+{
+  "header": {
+    "about": "Sobre mim",
+    "projects": "Projetos",
+    "contact": "Contato",
+    "language": "PT",
+    "theme": "Escuro"
+  },
+  "hero": {
+    "eyebrow": "Portfólio",
+    "title": "Marco Martinez",
+    "subtitle": "Desenvolvedor Laravel e Vue",
+    "description": "Construo aplicações web, APIs e ferramentas de negócio com foco em soluções práticas, estrutura limpa e impacto real.",
+    "primaryButton": "Ver projetos",
+    "secondaryButton": "Fale comigo"
+  },
+  "about": {
+    "label": "> Sobre mim",
+    "title": "Perfil técnico",
+    "paragraph1": "Sou um desenvolvedor de software focado na construção de aplicações web, APIs e ferramentas internas de negócio. Minha stack principal é Laravel, Vue.js, SQL e integrações backend.",
+    "paragraph2": "Já trabalhei em plataformas SaaS, soluções relacionadas a CRM, processos de automação e sistemas que exigem estrutura prática, manutenção simples e valor real para o negócio.",
+    "cards": {
+      "card1": {
+        "title": "Mentalidade backend-first",
+        "description": "Construção de APIs, regras de negócio, integrações e estruturas escaláveis com foco em clareza e manutenção."
+      },
+      "card2": {
+        "title": "Testes e confiabilidade",
+        "description": "Criação de testes estruturados e validação de fluxos críticos para garantir estabilidade, reduzir regressões e melhorar a qualidade no longo prazo."
+      },
+      "card3": {
+        "title": "Ownership e proatividade",
+        "description": "Assumir responsabilidade pelas funcionalidades de ponta a ponta, propor melhorias e resolver problemas além das tarefas atribuídas."
+      },
+      "card4": {
+        "title": "Foco em produto e negócio",
+        "description": "Traduzir requisitos de negócio em soluções práticas, especialmente em plataformas SaaS, sistemas de CRM e ferramentas internas."
+      }
+    }
+  },
+  "projects": {
+    "label": "> Projetos",
+    "title": "Trabalho selecionado",
+    "description": "Alguns exemplos de sistemas, integrações e ferramentas em que trabalhei.",
+    "items": {
+      "project1": {
+        "title": "CRM e plataforma interna de negócio",
+        "stack": "Laravel · Vue.js · SQL",
+        "description": "Desenvolvimento de módulos internos focados em operação de negócio, tratamento de dados, fluxos administrativos e estrutura sustentável do sistema."
+      },
+      "project2": {
+        "title": "Integrações de API e fluxos seguros de dados",
+        "stack": "Laravel · APIs · Criptografia · Jobs",
+        "description": "Implementação de integrações backend com processamento de dados, orquestração de requisições, camadas de segurança e fluxos automatizados."
+      },
+      "project3": {
+        "title": "Automação e ferramentas operacionais",
+        "stack": "Python · Selenium · Laravel",
+        "description": "Desenho de soluções voltadas para automação e ferramentas de apoio para processos repetitivos, execução estruturada e eficiência operacional."
+      }
+    },"contact": {
+  "label": "> Contato",
+  "title": "Entre em contato",
+  "description": "Você pode falar comigo sobre oportunidades, colaborações ou conversas técnicas.",
+  "email": "Email",
+  "linkedin": "LinkedIn",
+  "github": "GitHub",
+  "cv": "Baixar CV"
+}
+  }
+}

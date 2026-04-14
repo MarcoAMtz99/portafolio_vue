@@ -1,0 +1,97 @@
+:root {
+  font-family: "Courier New", monospace;
+  --bg-primary: #050816;
+  --bg-secondary: #0b1120;
+  --text-primary: #e5e7eb;
+  --text-secondary: #94a3b8;
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --border: #1f2937;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --shadow-soft: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent: #15803d;
+  --accent-hover: #166534;
+  --border: #cbd5e1;
+  --card-bg: rgba(15, 23, 42, 0.04);
+  --shadow-soft: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+@media (max-width: 520px) {
+  section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition:
+    color 0.35s ease,
+    background-color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+button {
+  font: inherit;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.2s ease;
+}
+
+#app {
+  min-height: 100vh;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+section,
+header,
+main,
+nav {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}

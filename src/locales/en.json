@@ -1,0 +1,73 @@
+{
+  "header": {
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "language": "EN",
+    "theme": "Dark"
+  },
+  "hero": {
+    "eyebrow": "Portfolio",
+    "title": "Marco Martinez",
+    "subtitle": "Laravel & Vue Developer",
+    "description": "I build web applications, APIs, and business tools focused on practical solutions, clean structure, and real-world impact.",
+    "primaryButton": "View Projects",
+    "secondaryButton": "Contact Me"
+  },
+  "about": {
+    "label": "> About Me",
+    "title": "Technical profile",
+    "paragraph1": "I am a software developer focused on building web applications, APIs, and internal business tools. My main stack is Laravel, Vue.js, SQL, and backend integrations.",
+    "paragraph2": "I have worked on SaaS platforms, CRM-related solutions, automation processes, and systems that require practical structure, maintainability, and real business value.",
+    "cards": {
+      "card1": {
+        "title": "Backend-first mindset",
+        "description": "Building APIs, business logic, integrations, and scalable application structures with a focus on maintainability and clarity."
+      },
+      "card2": {
+        "title": "Testing & reliability",
+        "description": "Writing structured tests and validating critical flows to ensure system stability, reduce regressions, and improve long-term quality."
+      },
+      "card3": {
+        "title": "Ownership & proactivity",
+        "description": "Taking responsibility for features end-to-end, proposing improvements, and solving problems beyond assigned tasks."
+      },
+      "card4": {
+        "title": "Product & business focus",
+        "description": "Translating business requirements into practical solutions, especially in SaaS platforms, CRM systems, and internal tools."
+      }
+    }
+  }
+  ,
+  "projects": {
+    "label": "> Projects",
+    "title": "Selected work",
+    "description": "A few examples of the systems, integrations, and tools I have worked on.",
+    "items": {
+      "project1": {
+        "title": "CRM & internal business platform",
+        "stack": "Laravel · Vue.js · SQL",
+        "description": "Development of internal modules focused on business operations, data handling, administrative flows, and maintainable system structure."
+      },
+      "project2": {
+        "title": "API integrations & secure data flows",
+        "stack": "Laravel · APIs · Encryption · Jobs",
+        "description": "Implementation of backend integrations involving data processing, request orchestration, security layers, and automated delivery flows."
+      },
+      "project3": {
+        "title": "Automation & operational tooling",
+        "stack": "Python · Selenium · Laravel",
+        "description": "Design of automation-oriented solutions and support tools for repetitive processes, structured execution, and operational efficiency."
+      }
+    }
+  },
+"contact": {
+  "label": "> Contact",
+  "title": "Get in touch",
+  "description": "Feel free to reach out for opportunities, collaborations, or technical discussions.",
+  "email": "Email",
+  "linkedin": "LinkedIn",
+  "github": "GitHub",
+  "cv": "Download CV"
+}
+}
