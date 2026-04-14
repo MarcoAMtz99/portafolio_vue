@@ -6,9 +6,9 @@ import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 
-// const themeFamily = ref('default')
+const themeFamily = ref('default')
 
-const themeFamily = ref('editorial')
+// const themeFamily = ref('editorial')
 
 const themeMode = ref('dark')
 
