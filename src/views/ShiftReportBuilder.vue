@@ -5,7 +5,7 @@ const STORAGE_KEY = 'shift-report-builder-v2'
 
 const managerName = ref('Manager')
 const copied = ref(false)
-
+const formError = ref('')
 const records = ref([])
 
 const paymentForm = ref({
@@ -59,6 +59,32 @@ const createId = () => {
   return crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`
 }
 
+const setError = (message) => {
+  formError.value = message
+
+  setTimeout(() => {
+    formError.value = ''
+  }, 3500)
+}
+
+const hasValue = (value) => {
+  return value !== null && value !== undefined && String(value).trim() !== ''
+}
+
+const requireText = (value) => {
+  return String(value || '').trim().length > 0
+}
+
+const isPositiveAmount = (value) => {
+  const number = Number(value)
+  return !Number.isNaN(number) && number >= 0
+}
+
+const formatMoney = (amount) => {
+  const value = Number(amount || 0)
+  return `€${value.toFixed(2)}`
+}
+
 const addRecord = (type, data = {}) => {
   records.value.unshift({
     id: createId(),
@@ -73,31 +99,32 @@ const removeRecord = (id) => {
 }
 
 const clearAll = () => {
+  if (!records.value.length) return
   if (!confirm('Clear the full shift report?')) return
+
   records.value = []
 }
 
-const formatMoney = (amount) => {
-  const value = Number(amount || 0)
-  return `€${value.toFixed(2)}`
-}
-
-const hasValue = (value) => {
-  return value !== null && value !== undefined && String(value).trim() !== ''
-}
-
 const addPayment = () => {
-  if (!paymentForm.value.name || !paymentForm.value.amount) return
+  if (!requireText(paymentForm.value.name)) {
+    setError('Payment name is required.')
+    return
+  }
+
+  if (!requireText(paymentForm.value.amount) || !isPositiveAmount(paymentForm.value.amount)) {
+    setError('Payment amount must be valid.')
+    return
+  }
 
   addRecord('payment', {
     title: 'Payment received',
-    name: paymentForm.value.name,
-    room: paymentForm.value.room,
-    bed: paymentForm.value.bed,
+    name: paymentForm.value.name.trim(),
+    room: paymentForm.value.room.trim(),
+    bed: paymentForm.value.bed.trim(),
     amount: Number(paymentForm.value.amount),
     paymentMethod: paymentForm.value.paymentMethod,
-    period: paymentForm.value.period,
-    note: paymentForm.value.note,
+    period: paymentForm.value.period.trim(),
+    note: paymentForm.value.note.trim(),
   })
 
   paymentForm.value = {
@@ -112,14 +139,22 @@ const addPayment = () => {
 }
 
 const addPendingPayment = () => {
-  if (!pendingForm.value.name) return
+  if (!requireText(pendingForm.value.name)) {
+    setError('Pending payment name is required.')
+    return
+  }
+
+  if (hasValue(pendingForm.value.amount) && !isPositiveAmount(pendingForm.value.amount)) {
+    setError('Pending payment amount must be valid.')
+    return
+  }
 
   addRecord('pending_payment', {
     title: 'Pending payment',
-    name: pendingForm.value.name,
+    name: pendingForm.value.name.trim(),
     amount: hasValue(pendingForm.value.amount) ? Number(pendingForm.value.amount) : '',
-    period: pendingForm.value.period,
-    note: pendingForm.value.note,
+    period: pendingForm.value.period.trim(),
+    note: pendingForm.value.note.trim(),
   })
 
   pendingForm.value = {
@@ -131,10 +166,23 @@ const addPendingPayment = () => {
 }
 
 const addSale = () => {
-  if (!saleForm.value.product || !saleForm.value.amount) return
+  if (!requireText(saleForm.value.product)) {
+    setError('Product name is required.')
+    return
+  }
+
+  if (!requireText(saleForm.value.amount) || !isPositiveAmount(saleForm.value.amount)) {
+    setError('Sale amount must be valid.')
+    return
+  }
+
+  if (!isPositiveAmount(saleForm.value.quantity) || Number(saleForm.value.quantity) < 1) {
+    setError('Quantity must be at least 1.')
+    return
+  }
 
   addRecord('sale', {
-    title: saleForm.value.product,
+    title: saleForm.value.product.trim(),
     quantity: Number(saleForm.value.quantity || 1),
     amount: Number(saleForm.value.amount),
     paymentMethod: saleForm.value.paymentMethod,
@@ -149,12 +197,20 @@ const addSale = () => {
 }
 
 const addCash = () => {
-  if (!cashForm.value.concept || !hasValue(cashForm.value.amount)) return
+  if (!requireText(cashForm.value.concept)) {
+    setError('Cash concept is required.')
+    return
+  }
+
+  if (!requireText(cashForm.value.amount) || !isPositiveAmount(cashForm.value.amount)) {
+    setError('Cash amount must be valid.')
+    return
+  }
 
   addRecord('cash', {
     title: cashForm.value.concept,
     amount: Number(cashForm.value.amount),
-    note: cashForm.value.note,
+    note: cashForm.value.note.trim(),
   })
 
   cashForm.value = {
@@ -165,27 +221,34 @@ const addCash = () => {
 }
 
 const addMaintenance = (description) => {
-  if (!description) return
+  if (!requireText(description)) return
 
   addRecord('maintenance', {
     title: 'Maintenance',
-    description,
+    description: description.trim(),
   })
 }
 
 const addCustomMaintenance = () => {
-  if (!customMaintenance.value) return
+  if (!requireText(customMaintenance.value)) {
+    setError('Maintenance task cannot be empty.')
+    return
+  }
+
   addMaintenance(customMaintenance.value)
   customMaintenance.value = ''
 }
 
 const addNote = () => {
-  if (!noteForm.value.description) return
+  if (!requireText(noteForm.value.description)) {
+    setError('Shift note cannot be empty.')
+    return
+  }
 
   addRecord('note', {
     title: noteForm.value.section === 'start' ? 'Start of shift' : 'End of shift',
     section: noteForm.value.section,
-    description: noteForm.value.description,
+    description: noteForm.value.description.trim(),
   })
 
   noteForm.value.description = ''
@@ -216,6 +279,7 @@ const recordLabel = (item) => {
   if (item.type === 'cash') return `Cash · ${item.title} · ${formatMoney(item.amount)}`
   if (item.type === 'maintenance') return `Maintenance · ${item.description}`
   if (item.type === 'note') return `${item.section === 'start' ? 'Start' : 'End'} note · ${item.description}`
+
   return item.title || item.type
 }
 
@@ -240,7 +304,9 @@ const reportText = computed(() => {
     paymentsReceived.value.forEach((item) => {
       const method = item.paymentMethod ? `, ${item.paymentMethod}` : ''
       const period = item.period ? ` for ${item.period}` : ''
-      const roomBed = item.room || item.bed ? ` Room ${item.room || '-'}${item.bed ? `, bed ${item.bed}` : ''}.` : ''
+      const roomBed = item.room || item.bed
+        ? ` Room ${item.room || '-'}${item.bed ? `, bed ${item.bed}` : ''}.`
+        : ''
       const note = item.note ? ` ${item.note}` : ''
 
       lines.push(`- Received payment from ${item.name} (${formatMoney(item.amount)}${method})${period}.${roomBed}${note}`)
@@ -253,6 +319,7 @@ const reportText = computed(() => {
     sales.value.forEach((item) => {
       const quantity = item.quantity || 1
       const method = item.paymentMethod ? `, ${item.paymentMethod}` : ''
+
       lines.push(`- Sold ${quantity} ${item.title} (${formatMoney(item.amount)}${method}).`)
     })
     lines.push('')
@@ -272,6 +339,7 @@ const reportText = computed(() => {
       const amount = hasValue(item.amount) ? `${formatMoney(item.amount)} ` : ''
       const period = item.period ? `for ${item.period} ` : ''
       const note = item.note ? ` ${item.note}` : ''
+
       lines.push(`- ${item.name} – ${amount}${period}(payment not received).${note}`)
     })
     lines.push('')
@@ -301,12 +369,16 @@ const reportText = computed(() => {
 })
 
 const copyReport = async () => {
-  await navigator.clipboard.writeText(reportText.value)
-  copied.value = true
+  try {
+    await navigator.clipboard.writeText(reportText.value)
+    copied.value = true
 
-  setTimeout(() => {
-    copied.value = false
-  }, 1600)
+    setTimeout(() => {
+      copied.value = false
+    }, 1600)
+  } catch {
+    setError('Could not copy the report. Please copy it manually.')
+  }
 }
 
 watch(
@@ -331,7 +403,7 @@ onMounted(() => {
   try {
     const parsed = JSON.parse(saved)
     managerName.value = parsed.managerName || 'Manager'
-    records.value = parsed.records || []
+    records.value = Array.isArray(parsed.records) ? parsed.records : []
   } catch {
     localStorage.removeItem(STORAGE_KEY)
   }
@@ -342,11 +414,9 @@ onMounted(() => {
   <main class="shift-report-page">
     <section class="tool-hero">
       <div>
-        <p class="eyebrow">/shift-review</p>
-        <h1>Shift Report Builder</h1>
-        <p>
-          Build a clean shift update in English and copy it directly to WhatsApp.
-        </p>
+        <!-- <p class="eyebrow">/shift-review</p> -->
+        <h1 class="center">Shift Report </h1>
+      
       </div>
 
       <div class="hero-card">
@@ -355,11 +425,21 @@ onMounted(() => {
       </div>
     </section>
 
+    <nav class="mobile-tool-nav">
+      <a href="#shift-inputs">Add</a>
+      <a href="#shift-records">Records</a>
+      <a href="#shift-preview">Preview</a>
+    </nav>
+
     <section class="builder-layout">
-      <aside class="builder-panel input-panel">
+      <aside id="shift-inputs" class="builder-panel input-panel">
         <div class="panel-header">
           <h2>Add entries</h2>
           <span>{{ records.length }} items</span>
+        </div>
+
+        <div v-if="formError" class="form-error">
+          {{ formError }}
         </div>
 
         <label class="field">
@@ -371,8 +451,8 @@ onMounted(() => {
           <summary>Payment received</summary>
 
           <div class="form-grid">
-            <input v-model="paymentForm.name" placeholder="Name" />
-            <input v-model="paymentForm.amount" type="number" placeholder="Amount €" />
+            <input v-model="paymentForm.name" placeholder="Name *" />
+            <input v-model="paymentForm.amount" type="number" min="0" step="0.01" placeholder="Amount € *" />
             <input v-model="paymentForm.room" placeholder="Room" />
             <input v-model="paymentForm.bed" placeholder="Bed" />
             <select v-model="paymentForm.paymentMethod">
@@ -394,8 +474,8 @@ onMounted(() => {
           <summary>Pending payment</summary>
 
           <div class="form-grid">
-            <input v-model="pendingForm.name" placeholder="Name" />
-            <input v-model="pendingForm.amount" type="number" placeholder="Amount € optional" />
+            <input v-model="pendingForm.name" placeholder="Name *" />
+            <input v-model="pendingForm.amount" type="number" min="0" step="0.01" placeholder="Amount € optional" />
           </div>
 
           <input v-model="pendingForm.period" placeholder="Period e.g. 1 week" />
@@ -410,9 +490,9 @@ onMounted(() => {
           <summary>Sale</summary>
 
           <div class="form-grid">
-            <input v-model="saleForm.product" placeholder="Product" />
-            <input v-model="saleForm.amount" type="number" placeholder="Amount €" />
-            <input v-model="saleForm.quantity" type="number" placeholder="Quantity" />
+            <input v-model="saleForm.product" placeholder="Product *" />
+            <input v-model="saleForm.amount" type="number" min="0" step="0.01" placeholder="Amount € *" />
+            <input v-model="saleForm.quantity" type="number" min="1" placeholder="Quantity" />
             <select v-model="saleForm.paymentMethod">
               <option value="cash">cash</option>
               <option value="card">card</option>
@@ -434,7 +514,7 @@ onMounted(() => {
             <option value="Money added to safe">Money added to safe</option>
           </select>
 
-          <input v-model="cashForm.amount" type="number" placeholder="Amount €" />
+          <input v-model="cashForm.amount" type="number" min="0" step="0.01" placeholder="Amount € *" />
           <input v-model="cashForm.note" placeholder="Optional note" />
 
           <button class="primary-action" @click="addCash">
@@ -482,7 +562,7 @@ onMounted(() => {
         </details>
       </aside>
 
-      <section class="builder-panel list-panel">
+      <section id="shift-records" class="builder-panel list-panel">
         <div class="panel-header">
           <h2>Added records</h2>
           <button class="ghost-action danger" @click="clearAll">
@@ -512,7 +592,7 @@ onMounted(() => {
         </div>
       </section>
 
-      <section class="builder-panel preview-panel">
+      <section id="shift-preview" class="builder-panel preview-panel">
         <div class="panel-header">
           <h2>Report preview</h2>
           <button class="primary-action" @click="copyReport">
@@ -584,6 +664,10 @@ onMounted(() => {
   font-size: 2rem;
 }
 
+.mobile-tool-nav {
+  display: none;
+}
+
 .builder-layout {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -624,6 +708,16 @@ onMounted(() => {
 .panel-header span {
   color: var(--text-secondary);
   font-size: 0.85rem;
+}
+
+.form-error {
+  margin-bottom: 14px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.1);
+  color: #fecaca;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
 }
 
 .field {
@@ -778,6 +872,32 @@ button {
     min-width: unset;
   }
 
+  .mobile-tool-nav {
+    position: sticky;
+    top: 72px;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 0 0 18px;
+    padding: 8px;
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-tool-nav a {
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 10px;
+    background: var(--button-secondary-bg);
+    border: 1px solid var(--button-secondary-border);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
   .builder-layout {
     grid-template-columns: 1fr;
   }
@@ -795,20 +915,83 @@ button {
 
 @media (max-width: 620px) {
   .shift-report-page {
-    padding: 24px 14px 64px;
+    padding: 18px 12px 56px;
+  }
+
+  .tool-hero {
+    margin-bottom: 14px;
+  }
+
+  .tool-hero h1 {
+    font-size: 2rem;
+  }
+
+  .tool-hero p {
+    font-size: 0.95rem;
+  }
+
+  .hero-card {
+    padding: 16px;
+  }
+
+  .hero-card strong {
+    font-size: 1.5rem;
+  }
+
+  .builder-panel {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .form-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .form-card summary {
+    padding: 10px 0;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
   }
 
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  button {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .quick-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
   .panel-header {
     align-items: flex-start;
     flex-direction: column;
+    gap: 10px;
+  }
+
+  .preview-panel textarea {
+    min-height: 420px;
+    font-size: 0.9rem;
   }
 
   .record-item {
     flex-direction: column;
+    padding: 14px;
+  }
+
+  .record-item button {
+    width: 100%;
   }
 }
 </style>
