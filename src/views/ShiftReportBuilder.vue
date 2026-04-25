@@ -491,9 +491,7 @@ onMounted(() => {
         <p class="eyebrow">/shift-review</p>
         <h1>Shift Report Builder</h1>
 
-        <p>
-          Build a clean shift update in English and copy it directly to WhatsApp.
-        </p>
+      
       </div>
 
       <div class="hero-card">
