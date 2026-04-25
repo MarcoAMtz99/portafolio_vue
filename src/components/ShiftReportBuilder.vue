@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const reportName = ref('Manager')
 
@@ -110,7 +111,9 @@ onMounted(() => {
 
 <template>
   <div class="shift-builder">
-
+     <RouterLink to="/" class="back-home">
+      ← Back to Portfolio
+    </RouterLink>
     <!-- LEFT PANEL -->
     <div class="panel left">
       <h3>Quick Add</h3>
@@ -211,5 +214,28 @@ textarea {
 button {
   cursor: pointer;
   padding: 6px 10px;
+}
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* BOTÓN BACK */
+.back-home {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 8px;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.back-home:hover {
+  color: var(--accent);
+  transform: translateX(-2px);
+}
+.back-home {
+  font-size: 0.8rem;
 }
 </style>

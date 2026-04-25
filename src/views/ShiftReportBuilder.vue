@@ -1,12 +1,15 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const STORAGE_KEY = 'shift-report-builder-v2'
+const SAVED_REPORTS_KEY = 'shift-report-history-v1'
 
 const managerName = ref('Manager')
 const copied = ref(false)
 const formError = ref('')
 const records = ref([])
+const savedReports = ref([])
 
 const paymentForm = ref({
   name: '',
@@ -54,6 +57,14 @@ const maintenanceQuickActions = [
   'Paper replaced in bathrooms 500',
   'Laundry done',
 ]
+
+const currentDate = computed(() => {
+  return new Date().toLocaleDateString('en-IE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+})
 
 const createId = () => {
   return crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`
@@ -288,6 +299,8 @@ const reportText = computed(() => {
 
   lines.push(`Hi ${managerName.value || 'there'},`)
   lines.push('')
+  lines.push(`Date: ${currentDate.value}`)
+  lines.push('')
   lines.push('Here is the update for my shift:')
   lines.push('')
 
@@ -381,6 +394,61 @@ const copyReport = async () => {
   }
 }
 
+const loadSavedReports = () => {
+  const saved = localStorage.getItem(SAVED_REPORTS_KEY)
+
+  if (!saved) {
+    savedReports.value = []
+    return
+  }
+
+  try {
+    const parsed = JSON.parse(saved)
+    savedReports.value = Array.isArray(parsed) ? parsed : []
+  } catch {
+    localStorage.removeItem(SAVED_REPORTS_KEY)
+    savedReports.value = []
+  }
+}
+
+const persistSavedReports = () => {
+  localStorage.setItem(SAVED_REPORTS_KEY, JSON.stringify(savedReports.value))
+}
+
+const saveReportToHistory = () => {
+  if (!records.value.length) {
+    setError('Add at least one record before saving the report.')
+    return
+  }
+
+  const savedReport = {
+    id: createId(),
+    title: `Shift report - ${new Date().toLocaleString('en-IE')}`,
+    managerName: managerName.value,
+    records: JSON.parse(JSON.stringify(records.value)),
+    reportText: reportText.value,
+    totalTransactions: totalTransactions.value,
+    createdAt: new Date().toISOString(),
+  }
+
+  savedReports.value.unshift(savedReport)
+  persistSavedReports()
+}
+
+const loadReportFromHistory = (report) => {
+  if (!report) return
+
+  managerName.value = report.managerName || 'Manager'
+  records.value = Array.isArray(report.records)
+    ? JSON.parse(JSON.stringify(report.records))
+    : []
+}
+
+const deleteSavedReport = (id) => {
+  savedReports.value = savedReports.value.filter((report) => report.id !== id)
+  persistSavedReports()
+}
+
 watch(
   [records, managerName],
   () => {
@@ -398,25 +466,34 @@ watch(
 onMounted(() => {
   const saved = localStorage.getItem(STORAGE_KEY)
 
-  if (!saved) return
-
-  try {
-    const parsed = JSON.parse(saved)
-    managerName.value = parsed.managerName || 'Manager'
-    records.value = Array.isArray(parsed.records) ? parsed.records : []
-  } catch {
-    localStorage.removeItem(STORAGE_KEY)
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved)
+      managerName.value = parsed.managerName || 'Manager'
+      records.value = Array.isArray(parsed.records) ? parsed.records : []
+    } catch {
+      localStorage.removeItem(STORAGE_KEY)
+    }
   }
+
+  loadSavedReports()
 })
 </script>
 
 <template>
   <main class="shift-report-page">
     <section class="tool-hero">
-      <div>
-        <!-- <p class="eyebrow">/shift-review</p> -->
-        <h1 class="center">Shift Report </h1>
-      
+      <div class="hero-left">
+        <RouterLink to="/" class="back-home">
+          ← Back to Portfolio
+        </RouterLink>
+
+        <p class="eyebrow">/shift-review</p>
+        <h1>Shift Report Builder</h1>
+
+        <p>
+          Build a clean shift update in English and copy it directly to WhatsApp.
+        </p>
       </div>
 
       <div class="hero-card">
@@ -429,6 +506,7 @@ onMounted(() => {
       <a href="#shift-inputs">Add</a>
       <a href="#shift-records">Records</a>
       <a href="#shift-preview">Preview</a>
+      <a href="#shift-history">Saved</a>
     </nav>
 
     <section class="builder-layout">
@@ -595,12 +673,53 @@ onMounted(() => {
       <section id="shift-preview" class="builder-panel preview-panel">
         <div class="panel-header">
           <h2>Report preview</h2>
-          <button class="primary-action" @click="copyReport">
-            {{ copied ? 'Copied!' : 'Copy report' }}
-          </button>
+
+          <div class="preview-actions">
+            <button class="ghost-action" @click="saveReportToHistory">
+              Save report
+            </button>
+
+            <button class="primary-action" @click="copyReport">
+              {{ copied ? 'Copied!' : 'Copy report' }}
+            </button>
+          </div>
         </div>
 
         <textarea :value="reportText" readonly />
+      </section>
+
+      <section id="shift-history" class="builder-panel history-panel">
+        <div class="panel-header">
+          <h2>Saved reports</h2>
+          <span>{{ savedReports.length }} saved</span>
+        </div>
+
+        <div v-if="!savedReports.length" class="empty-state">
+          No saved reports yet.
+        </div>
+
+        <div v-else class="saved-list">
+          <article
+            v-for="report in savedReports"
+            :key="report.id"
+            class="saved-report"
+          >
+            <div>
+              <strong>{{ report.title }}</strong>
+              <span>{{ formatMoney(report.totalTransactions || 0) }}</span>
+            </div>
+
+            <div class="saved-actions">
+              <button class="ghost-action" @click="loadReportFromHistory(report)">
+                Load
+              </button>
+
+              <button class="ghost-action danger" @click="deleteSavedReport(report.id)">
+                Delete
+              </button>
+            </div>
+          </article>
+        </div>
       </section>
     </section>
   </main>
@@ -621,6 +740,26 @@ onMounted(() => {
   justify-content: space-between;
   gap: 20px;
   margin-bottom: 24px;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.back-home {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 8px;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.back-home:hover {
+  color: var(--accent);
+  transform: translateX(-2px);
 }
 
 .eyebrow {
@@ -684,10 +823,14 @@ onMounted(() => {
 }
 
 .input-panel {
-  grid-row: span 2;
+  grid-row: span 3;
 }
 
 .preview-panel {
+  grid-column: 2;
+}
+
+.history-panel {
   grid-column: 2;
 }
 
@@ -708,6 +851,11 @@ onMounted(() => {
 .panel-header span {
   color: var(--text-secondary);
   font-size: 0.85rem;
+}
+
+.preview-actions {
+  display: flex;
+  gap: 8px;
 }
 
 .form-error {
@@ -818,12 +966,14 @@ button {
   font-weight: 600;
 }
 
-.record-list {
+.record-list,
+.saved-list {
   display: grid;
   gap: 10px;
 }
 
-.record-item {
+.record-item,
+.saved-report {
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -855,6 +1005,23 @@ button {
   border: 1px solid rgba(248, 113, 113, 0.25);
 }
 
+.saved-report strong {
+  display: block;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.saved-report span {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.saved-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
 .empty-state {
   border: 1px dashed var(--border);
   border-radius: 14px;
@@ -877,7 +1044,7 @@ button {
     top: 72px;
     z-index: 5;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     margin: 0 0 18px;
     padding: 8px;
@@ -894,7 +1061,7 @@ button {
     background: var(--button-secondary-bg);
     border: 1px solid var(--button-secondary-border);
     color: var(--text-primary);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
   }
 
@@ -903,7 +1070,8 @@ button {
   }
 
   .input-panel,
-  .preview-panel {
+  .preview-panel,
+  .history-panel {
     grid-row: auto;
     grid-column: auto;
   }
@@ -928,6 +1096,10 @@ button {
 
   .tool-hero p {
     font-size: 0.95rem;
+  }
+
+  .back-home {
+    font-size: 0.8rem;
   }
 
   .hero-card {
@@ -974,8 +1146,10 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .panel-header {
-    align-items: flex-start;
+  .panel-header,
+  .preview-actions,
+  .saved-actions {
+    align-items: stretch;
     flex-direction: column;
     gap: 10px;
   }
@@ -985,7 +1159,8 @@ button {
     font-size: 0.9rem;
   }
 
-  .record-item {
+  .record-item,
+  .saved-report {
     flex-direction: column;
     padding: 14px;
   }

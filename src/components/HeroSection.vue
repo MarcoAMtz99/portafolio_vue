@@ -1,5 +1,6 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { RouterLink } from 'vue-router'
 
 const { t } = useI18n()
 </script>
@@ -7,16 +8,24 @@ const { t } = useI18n()
 <template>
   <main class="hero">
     <section class="hero-content">
-      <!-- <p class="hero-label">[ root ] {{ t('hero.eyebrow') }}</p> -->
-      <p class="hero-label">> {{ t('hero.eyebrow') }}</p>
 
-      <h1 class="hero-title">{{ t('hero.title') }}</h1>
-      <h2 class="hero-subtitle">{{ t('hero.subtitle') }}</h2>
+      <p class="hero-label">
+        > {{ t('hero.eyebrow') }}
+      </p>
+
+      <h1 class="hero-title">
+        {{ t('hero.title') }}
+      </h1>
+
+      <h2 class="hero-subtitle">
+        {{ t('hero.subtitle') }}
+      </h2>
 
       <p class="hero-description">
         {{ t('hero.description') }}
       </p>
 
+      <!-- ACTIONS -->
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">
           {{ t('hero.primaryButton') }}
@@ -25,7 +34,13 @@ const { t } = useI18n()
         <a href="#contact" class="btn btn-secondary">
           {{ t('hero.secondaryButton') }}
         </a>
+
+        <!-- 👇 SHIFT TOOL -->
+        <RouterLink to="/shift-report" class="btn btn-accent">
+          Open Shift Tool →
+        </RouterLink>
       </div>
+
     </section>
   </main>
 </template>
@@ -52,13 +67,6 @@ const { t } = useI18n()
   color: var(--accent);
   opacity: 0.9;
 }
-/* .hero-label {
-  margin: 0 0 12px;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-} */
 
 .hero-title {
   margin: 0;
@@ -90,6 +98,50 @@ const { t } = useI18n()
   flex-wrap: wrap;
 }
 
+/* BOTONES BASE */
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  display: inline-block;
+}
+
+/* PRIMARY */
+.btn-primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+/* SECONDARY */
+.btn-secondary {
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+/* NUEVO BOTÓN SHIFT */
+.btn-accent {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn-accent:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* HOVERS GENERALES */
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* MOBILE */
 @media (max-width: 520px) {
   .hero-description {
     font-size: 0.95rem;
@@ -97,6 +149,10 @@ const { t } = useI18n()
 
   .hero-actions {
     gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
   }
 }
 </style>
