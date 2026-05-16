@@ -111,9 +111,7 @@ onMounted(() => {
 
 <template>
   <div class="shift-builder">
-     <RouterLink to="/" class="back-home">
-      ← Back to Portfolio
-    </RouterLink>
+    
     <!-- LEFT PANEL -->
     <div class="panel left">
       <h3>Quick Add</h3>

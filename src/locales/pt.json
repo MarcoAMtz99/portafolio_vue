@@ -9,63 +9,84 @@
   "hero": {
     "eyebrow": "Portfólio",
     "title": "Antonio Martinez",
-    "subtitle": "Desenvolvedor Laravel e Vue",
-    "description": "Construo aplicações web, APIs e ferramentas de negócio com foco em soluções práticas, estrutura limpa e impacto real.",
+    "subtitle": "Desenvolvedor Full Stack focado em automação e arquitetura modular",
+    "description": "Desenvolvo aplicações web, ferramentas operacionais, APIs e workflows automatizados com foco em manutenção, escalabilidade e impacto real para o negócio.",
     "primaryButton": "Ver projetos",
-    "secondaryButton": "Fale comigo"
+    "secondaryButton": "Entrar em contato"
   },
   "about": {
     "label": "> Sobre mim",
     "title": "Perfil técnico",
-    "paragraph1": "Sou um desenvolvedor de software focado na construção de aplicações web, APIs e ferramentas internas de negócio. Minha stack principal é Laravel, Vue.js, SQL e integrações backend.",
-    "paragraph2": "Já trabalhei em plataformas SaaS, soluções relacionadas a CRM, processos de automação e sistemas que exigem estrutura prática, manutenção simples e valor real para o negócio.",
+    "paragraph1": "Sou um desenvolvedor de software focado na construção de sistemas modulares, ferramentas operacionais e serviços backend escaláveis. Meu stack principal inclui Laravel, Vue.js, SQL, automação de processos e integrações de APIs.",
+    "paragraph2": "Trabalhei em plataformas SaaS, sistemas CRM, automação de workflows internos e ferramentas operacionais. Meu foco está em arquitetura sustentável, processamento backend, testing e otimização de workflows reais.",
     "cards": {
       "card1": {
-        "title": "Mentalidade backend-first",
-        "description": "Construção de APIs, regras de negócio, integrações e estruturas escaláveis com foco em clareza e manutenção."
+        "title": "Automação & workflows backend",
+        "description": "Construção de workflows automatizados, processamento em segundo plano, jobs escaláveis, integrações de APIs e serviços backend focados em eficiência operacional."
       },
       "card2": {
-        "title": "Testes e confiabilidade",
-        "description": "Criação de testes estruturados e validação de fluxos críticos para garantir estabilidade, reduzir regressões e melhorar a qualidade no longo prazo."
+        "title": "Testing & manutenção",
+        "description": "Implementação de testes com PHPUnit, validação de workflows críticos e documentação técnica para reduzir bugs, acelerar QA e melhorar estabilidade de longo prazo."
       },
       "card3": {
-        "title": "Ownership e proatividade",
-        "description": "Assumir responsabilidade pelas funcionalidades de ponta a ponta, propor melhorias e resolver problemas além das tarefas atribuídas."
+        "title": "Arquitetura modular",
+        "description": "Desenvolvimento de componentes reutilizáveis, separação por domínios e serviços desacoplados focados em escalabilidade e manutenção do sistema."
       },
       "card4": {
-        "title": "Foco em produto e negócio",
-        "description": "Traduzir requisitos de negócio em soluções práticas, especialmente em plataformas SaaS, sistemas de CRM e ferramentas internas."
+        "title": "Ownership & otimização",
+        "description": "Resolução de problemas operacionais reais, melhoria de processos internos e construção de soluções práticas focadas em impacto e eficiência."
       }
     }
   },
   "projects": {
     "label": "> Projetos",
-    "title": "Trabalho selecionado",
-    "description": "Alguns exemplos de sistemas, integrações e ferramentas em que trabalhei.",
+    "title": "Projetos selecionados",
+    "description": "Sistemas, workflows de automação e ferramentas operacionais focadas em arquitetura backend escalável e operações reais de negócio.",
     "items": {
       "project1": {
-        "title": "CRM e plataforma interna de negócio",
-        "stack": "Laravel · Vue.js · SQL",
-        "description": "Desenvolvimento de módulos internos focados em operação de negócio, tratamento de dados, fluxos administrativos e estrutura sustentável do sistema."
+        "title": "Automation Workflow Toolkit",
+        "stack": "Laravel · Jobs · APIs · Queues · Processamento Paralelo",
+        "description": "Desenvolvimento e implementação de workflows backend orientados à automação, focados em processamento em larga escala, execução agendada de jobs, integrações de APIs e automação operacional. Construído utilizando serviços modulares, filas, workers em segundo plano e estratégias escaláveis de execução."
       },
       "project2": {
-        "title": "Integrações de API e fluxos seguros de dados",
-        "stack": "Laravel · APIs · Criptografia · Jobs",
-        "description": "Implementação de integrações backend com processamento de dados, orquestração de requisições, camadas de segurança e fluxos automatizados."
+        "title": "Insurance Operations Platform",
+        "stack": "Laravel · Vue.js · SQL · PHPUnit",
+        "description": "Contribuição no desenvolvimento e manutenção de uma plataforma modular focada em cotações, workflows administrativos e operações internas. Implementação de componentes reutilizáveis no frontend, serviços backend, melhorias em relatórios e testes Feature com PHPUnit para aumentar estabilidade e manutenção."
       },
       "project3": {
-        "title": "Automação e ferramentas operacionais",
-        "stack": "Python · Selenium · Laravel",
-        "description": "Desenho de soluções voltadas para automação e ferramentas de apoio para processos repetitivos, execução estruturada e eficiência operacional."
+        "title": "Automation & Operational Tools",
+        "stack": "Python · Selenium · Laravel · Vue.js",
+        "description": "Construção de ferramentas de automação operacional focadas em processamento estruturado de dados, otimização de tarefas repetitivas e eficiência de workflows. Foco em workflows operacionais reais, ferramentas internas e soluções práticas orientadas à automação."
+      },
+      "project4": {
+        "title": "Logistics Packaging Optimization Demo",
+        "stack": "Laravel · Vue.js · SQL · Warehouse Logic",
+        "description": "Protótipo orientado à logística para avaliar configurações de empacotamento utilizando dimensões, volume e restrições de caixas. Implementação de serviços reutilizáveis para cálculos e lógica modular focada em workflows de otimização para ambientes warehouse."
+      },
+      "project5": {
+        "title": "Shift Report Builder",
+        "stack": "Vue 3 · Composition API · Mobile-first UI",
+        "description": "Ferramenta operacional focada na geração rápida de relatórios estruturados de turno para workflows de hospitality. Inclui formulários dinâmicos, persistência local, geração automática de relatórios e UX mobile-first focada em velocidade e consistência operacional."
       }
-    },"contact": {
-  "label": "> Contato",
-  "title": "Entre em contato",
-  "description": "Você pode falar comigo sobre oportunidades, colaborações ou conversas técnicas.",
-  "email": "Email",
-  "linkedin": "LinkedIn",
-  "github": "GitHub",
-  "cv": "Baixar CV"
-}
+    }
+  },
+  "contact": {
+    "label": "> Contato",
+    "title": "Vamos construir algo útil",
+    "description": "Aberto a oportunidades relacionadas a backend, full stack, automação e ferramentas operacionais. Entre em contato para colaborações, discussões técnicas ou oportunidades de engenharia.",
+    "availability": "Atualmente aberto a oportunidades remotas e colaborações técnicas.",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "cv": "Baixar currículo"
+  },
+
+  "contactLinks": {
+    "emailUrl": "mailto:marcoamtz99{'@'}gmail.com",
+    "linkedinUrl": "https://linkedin.com/in/marco-antonio-martinez-martinez-7073a0236",
+    "githubUrl": "https://github.com/MarcoAMtz99",
+    "cvUrl": "/cv/Antonio-Martinez-CV-PT.pdf"
   }
+
+  
 }
