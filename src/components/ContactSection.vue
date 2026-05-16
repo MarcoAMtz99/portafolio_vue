@@ -55,7 +55,7 @@ const contactLinks = computed(() => [
             :href="link.href"
             :target="link.external ? '_blank' : null"
             :rel="link.external ? 'noopener noreferrer' : null"
-            :download="link.key === 'cv' ? true : null"
+            :download="link.key === 'cv' ? currriculum : null"
             class="panel contact-card"
           >
           <div class="panel-content">
